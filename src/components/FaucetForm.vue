@@ -16,6 +16,39 @@ const handleSubmit = () => {
     network: network.value
   })
 }
+
+const addTokenToMetaMask = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ethereum = (window as any).ethereum
+  if (typeof ethereum !== 'undefined') {
+    try {
+      await ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: import.meta.env.VITE_SEPOLIA_CONTRACT_ADDRESS,
+            symbol: 'RPK',
+            decimals: 18,
+          },
+        },
+      })
+    } catch (error) {
+      console.error('Gagal menambahkan token:', error)
+    }
+  } else {
+    alert('MetaMask tidak terdeteksi di browser Anda!')
+  }
+}
+
+const copyStellarAddress = async () => {
+  try {
+    await navigator.clipboard.writeText(import.meta.env.VITE_STELLAR_CONTRACT_ADDRESS)
+    alert('Contract Address berhasil disalin!\n\nCara tambah di Freighter Wallet:\n1. Buka Freighter\n2. Klik "Manage Assets"\n3. Pilih "Add Custom Asset"\n4. Paste address yang baru saja disalin.')
+  } catch (error) {
+    console.error('Gagal menyalin:', error)
+  }
+}
 </script>
 
 <template>
@@ -78,9 +111,31 @@ const handleSubmit = () => {
       </button>
     </form>
 
-    <div v-if="isSuccess" class="mt-6 p-4 rounded-md text-center text-green-400 border-2 border-green-500/50 bg-green-500/10 text-sm">
-      <strong class="text-green-300 text-lg block mb-1">✅ Sukses!</strong>
-      Permintaan berhasil diproses
+    <div v-if="isSuccess" class="mt-6 p-4 rounded-md text-center text-green-400 border-2 border-green-500/50 bg-green-500/10 text-sm flex flex-col items-center gap-4">
+      <div>
+        <strong class="text-green-300 text-lg block mb-1">✅ Sukses!</strong>
+        Permintaan berhasil diproses
+      </div>
+      
+      <button 
+        v-if="network === 'sepolia'" 
+        @click="addTokenToMetaMask"
+        type="button"
+        class="bg-[#F6851B] hover:bg-[#e2761b] text-white px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 shadow-lg shadow-[#F6851B]/20"
+      >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="w-5 h-5" alt="MetaMask" />
+        Tambah RPK ke MetaMask
+      </button>
+
+      <button 
+        v-if="network === 'stellar'" 
+        @click="copyStellarAddress"
+        type="button"
+        class="bg-[#1a1d2d] border border-border-color hover:bg-border-color text-text-primary px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 shadow-lg"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        Salin Address (Untuk Freighter)
+      </button>
     </div>
 
     <div v-if="isError && error" class="mt-6 p-4 rounded-md text-left text-red-400 border-2 border-red-500/50 bg-red-500/10 text-sm">
