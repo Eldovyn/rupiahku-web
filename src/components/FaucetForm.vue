@@ -25,7 +25,7 @@ const handleSubmit = () => {
   </div>
 
   <div class="border-2 border-border-color bg-bg-color p-8 rounded-md w-[90%] md:w-[70%] lg:w-[60%] mx-auto mt-8">
-    <p class="text-text-secondary mb-8 text-center text-sm md:text-base">Dapatkan token RupiahKU (RPK) gratis untuk menguji aplikasi di jaringan Stellar Testnet.</p>
+    <p class="text-text-secondary mb-8 text-center text-sm md:text-base">Dapatkan token RupiahKU (RPK) gratis untuk menguji aplikasi di jaringan Stellar Testnet dan Sepolia Testnet.</p>
     
     <form @submit.prevent="handleSubmit" class="text-left flex flex-col gap-5">
       <div class="flex flex-col">
