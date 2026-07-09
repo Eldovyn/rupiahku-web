@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import FaucetForm from './components/FaucetForm.vue'
+
+const stellarContract = import.meta.env.VITE_STELLAR_CONTRACT_ADDRESS || 'CAXMJUKELFC7THVUKVH4NA5RYUDLORCKSZ5HTOPOMEXRMZJLFHKZJCQZ'
+const sepoliaContract = import.meta.env.VITE_SEPOLIA_CONTRACT_ADDRESS || '0xd31c25431846172D3440e34A8AF3d080Fcef4b75'
 </script>
 
 <template>
@@ -106,7 +109,7 @@ import FaucetForm from './components/FaucetForm.vue'
                       <h3 class="text-text-primary text-xl font-semibold">Stellar Testnet (Soroban)</h3>
                   </div>
                   <p class="text-text-secondary text-sm mb-2">Token ID / Contract Address:</p>
-                  <code class="bg-[#1a1d2d] p-3 rounded-md w-full text-xs sm:text-sm text-accent break-all border border-border-color/50 font-mono">CAXMJUKELFC7THVUKVH4NA5RYUDLORCKSZ5HTOPOMEXRMZJLFHKZJCQZ</code>
+                  <code class="bg-[#1a1d2d] p-3 rounded-md w-full text-xs sm:text-sm text-accent break-all border border-border-color/50 font-mono">{{ stellarContract }}</code>
               </div>
 
               <div class="border-2 border-border-color bg-bg-color p-6 rounded-md flex flex-col items-start hover:border-accent transition-colors">
@@ -115,7 +118,7 @@ import FaucetForm from './components/FaucetForm.vue'
                       <h3 class="text-text-primary text-xl font-semibold">Sepolia Testnet (ERC-20)</h3>
                   </div>
                   <p class="text-text-secondary text-sm mb-2">Contract Address:</p>
-                  <code class="bg-[#1a1d2d] p-3 rounded-md w-full text-xs sm:text-sm text-accent break-all border border-border-color/50 font-mono">0xd31c25431846172D3440e34A8AF3d080Fcef4b75</code>
+                  <code class="bg-[#1a1d2d] p-3 rounded-md w-full text-xs sm:text-sm text-accent break-all border border-border-color/50 font-mono">{{ sepoliaContract }}</code>
               </div>
           </div>
       </section>
