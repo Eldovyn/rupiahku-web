@@ -78,9 +78,9 @@ const handleSubmit = () => {
       </button>
     </form>
 
-    <div v-if="isSuccess && data" class="mt-6 p-4 rounded-md text-left text-green-400 border-2 border-green-500/50 bg-green-500/10 text-sm">
-      <strong class="text-green-300">✅ Sukses!</strong> <br/> {{ data.message }}
-      <pre class="bg-[#1a1d2d] p-3 rounded-md mt-3 overflow-x-auto text-xs border border-border-color">{{ JSON.stringify(data.data, null, 2) }}</pre>
+    <div v-if="isSuccess" class="mt-6 p-4 rounded-md text-center text-green-400 border-2 border-green-500/50 bg-green-500/10 text-sm">
+      <strong class="text-green-300 text-lg block mb-1">✅ Sukses!</strong>
+      Permintaan berhasil diproses
     </div>
 
     <div v-if="isError && error" class="mt-6 p-4 rounded-md text-left text-red-400 border-2 border-red-500/50 bg-red-500/10 text-sm">
