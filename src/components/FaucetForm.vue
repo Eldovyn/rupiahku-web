@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useMintToken } from '../api/faucet'
 
 const network = ref('stellar')
@@ -16,6 +16,17 @@ const handleSubmit = () => {
     network: network.value
   })
 }
+
+const explorerLink = computed(() => {
+  if (!isSuccess.value || !data.value?.data?.tx_hash) return '#'
+  
+  if (network.value === 'sepolia') {
+    return `https://sepolia.etherscan.io/tx/${data.value.data.tx_hash}`
+  } else {
+    return `https://stellar.expert/explorer/testnet/tx/${data.value.data.tx_hash}`
+  }
+})
+
 
 const addTokenToMetaMask = async () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -116,6 +127,17 @@ const copyStellarAddress = async () => {
         <strong class="text-green-300 text-lg block mb-1">✅ Sukses!</strong>
         Permintaan berhasil diproses
       </div>
+
+      <a 
+        v-if="data?.data?.tx_hash"
+        :href="explorerLink" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="text-accent hover:text-accent/80 underline text-sm flex items-center gap-1"
+      >
+        Lihat Transaksi di Explorer
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2-2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      </a>
       
       <button 
         v-if="network === 'sepolia'" 
