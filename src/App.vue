@@ -91,9 +91,37 @@ import FaucetForm from './components/FaucetForm.vue'
       <section id="faucet" class="py-16 px-[5%] max-w-7xl mx-auto">
           <FaucetForm />
       </section>
+
+      <section id="contracts" class="py-16 px-[5%] max-w-7xl mx-auto border-t border-border-color/30">
+          <div class="flex flex-col items-center w-full mb-10">
+              <h2 class="text-text-primary text-3xl font-semibold text-center">Smart Contract Address</h2>
+              <div class="w-full max-w-[200px] border-t-2 border-border-color mt-4"></div>
+              <p class="text-text-secondary mt-4 text-center">Informasi alamat kontrak pintar RupiahKU (RPK) di berbagai jaringan testnet.</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full lg:w-[90%] xl:w-[80%] mx-auto">
+              <div class="border-2 border-border-color bg-bg-color p-6 rounded-md flex flex-col items-start hover:border-accent transition-colors">
+                  <div class="flex items-center gap-3 mb-4">
+                      <img src="https://cdn.simpleicons.org/stellar/white" alt="Stellar" class="w-6 h-6" />
+                      <h3 class="text-text-primary text-xl font-semibold">Stellar Testnet (Soroban)</h3>
+                  </div>
+                  <p class="text-text-secondary text-sm mb-2">Token ID / Contract Address:</p>
+                  <code class="bg-[#1a1d2d] p-3 rounded-md w-full text-xs sm:text-sm text-accent break-all border border-border-color/50 font-mono">CAXMJUKELFC7THVUKVH4NA5RYUDLORCKSZ5HTOPOMEXRMZJLFHKZJCQZ</code>
+              </div>
+
+              <div class="border-2 border-border-color bg-bg-color p-6 rounded-md flex flex-col items-start hover:border-accent transition-colors">
+                  <div class="flex items-center gap-3 mb-4">
+                      <img src="https://cdn.simpleicons.org/ethereum/8b5cf6" alt="Sepolia" class="w-6 h-6" />
+                      <h3 class="text-text-primary text-xl font-semibold">Sepolia Testnet (ERC-20)</h3>
+                  </div>
+                  <p class="text-text-secondary text-sm mb-2">Contract Address:</p>
+                  <code class="bg-[#1a1d2d] p-3 rounded-md w-full text-xs sm:text-sm text-accent break-all border border-border-color/50 font-mono">0xd31c25431846172D3440e34A8AF3d080Fcef4b75</code>
+              </div>
+          </div>
+      </section>
   </main>
 
   <footer class="text-center py-8 px-[5%] text-text-secondary border-t border-border-color mt-8 text-sm">
-      <p>&copy; 2026 RupiahKU Stablecoin Project. Built for Stellar Soroban.</p>
+      <p>&copy; 2026 RupiahKU Stablecoin Project. Built for Stellar Soroban & Ethereum.</p>
   </footer>
 </template>
