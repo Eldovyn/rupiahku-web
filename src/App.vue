@@ -7,8 +7,9 @@ const sepoliaContract = import.meta.env.VITE_SEPOLIA_CONTRACT_ADDRESS || '0xd31c
 
 <template>
   <header class="bg-bg-color/85 backdrop-blur-md sticky top-0 w-full z-50 border-b border-border-color/30 py-4">
-      <nav class="mx-auto flex flex-wrap items-center justify-between md:justify-center w-full px-[5%] relative">
+      <nav class="mx-auto flex flex-wrap items-center justify-between md:justify-center w-full px-[5%] relative" aria-label="Navigasi utama">
           <div class="flex items-center gap-3 text-2xl font-semibold text-text-primary md:absolute md:left-8">
+              <img src="/rpk.webp" alt="RupiahKU Logo" class="w-8 h-8" />
               <span>RupiahKU</span>
           </div>
           <ul class="hidden md:flex items-center gap-8 font-medium">
