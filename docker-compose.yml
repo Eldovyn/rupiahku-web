@@ -15,3 +15,8 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
+      # Runtime override — dibaca entrypoint.sh untuk generate /config.js
+      # Di Dokploy, set ENV yang sama di dashboard (akan override nilai build-time)
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
+      - VITE_STELLAR_CONTRACT_ADDRESS=${VITE_STELLAR_CONTRACT_ADDRESS:-}
+      - VITE_SEPOLIA_CONTRACT_ADDRESS=${VITE_SEPOLIA_CONTRACT_ADDRESS:-}

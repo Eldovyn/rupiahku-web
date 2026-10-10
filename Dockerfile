@@ -2,7 +2,8 @@
 FROM oven/bun:1 as build-stage
 WORKDIR /app
 
-# Declare build arguments
+# Declare build arguments - Vite embed VITE_* saat BUILD (bukan runtime)
+# Nilai ini akan ke-bake ke dalam dist/*.js
 ARG VITE_API_BASE_URL
 ARG VITE_STELLAR_CONTRACT_ADDRESS
 ARG VITE_SEPOLIA_CONTRACT_ADDRESS
@@ -13,7 +14,7 @@ ENV VITE_STELLAR_CONTRACT_ADDRESS=$VITE_STELLAR_CONTRACT_ADDRESS
 ENV VITE_SEPOLIA_CONTRACT_ADDRESS=$VITE_SEPOLIA_CONTRACT_ADDRESS
 
 # Copy package files and install dependencies
-COPY package.json bun.lockb* ./
+COPY package.json bun.lock* ./
 RUN bun install
 
 # Copy all source files and build
@@ -23,9 +24,12 @@ RUN bun run build
 # Production stage
 FROM nginx:alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

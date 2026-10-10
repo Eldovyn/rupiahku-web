@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useMintToken } from '../api/faucet'
+import { useMintToken, API_URL } from '../api/faucet'
 
 const network = ref('stellar')
 const walletAddress = ref('')
@@ -163,11 +163,16 @@ const copyStellarAddress = async () => {
     <div v-if="isError && error" class="mt-6 p-4 rounded-md text-left text-red-400 border-2 border-red-500/50 bg-red-500/10 text-sm">
       <strong class="text-red-300">❌ Error:</strong> <br/>
       <template v-if="(error as any).response?.data">
-        {{ (error as any).response.data.message }}
+        {{ (error as any).response.data.message ?? (error as any).response.data.detail ?? JSON.stringify((error as any).response.data) }}
         <pre v-if="(error as any).response.data.errors" class="bg-[#1a1d2d] p-3 rounded-md mt-3 overflow-x-auto text-xs border border-border-color">{{ JSON.stringify((error as any).response.data.errors, null, 2) }}</pre>
       </template>
       <template v-else>
-        Koneksi Gagal: Pastikan API Faucet sedang berjalan di http://127.0.0.1:8000
+        Koneksi Gagal ke:<br/>
+        <code class="bg-[#1a1d2d] px-2 py-1 rounded text-xs break-all border border-border-color/50">{{ API_URL }}/mint</code><br/>
+        <span class="text-xs opacity-80 mt-2 block">
+          Pesan: {{ (error as any).message ?? 'Network error / CORS / API belum ready' }}<br/>
+          Cek: (1) Dokploy sudah <b>Rebuild</b> setelah ganti ENV, (2) API {{ API_URL }} bisa diakses, (3) CORS mengizinkan origin web.
+        </span>
       </template>
     </div>
   </div>
